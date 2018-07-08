@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заполните форму</title>
+</head>
+<body>
+
+<form action="/leaveMessage" method="post" th:object="${user}">
+
+    <input th:field="*{username}" placeholder="Ваше имя">
+    <input th:field="*{mobilePhone}" placeholder="Мобильный телефон">
+    <input th:field="*{mail}" placeholder="Email">
+    <input th:field="*{message}" placeholder="Пожелания к заказу">
+    <input type="submit">
+
+</form>
+
+</body>
+</html>

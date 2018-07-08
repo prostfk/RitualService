@@ -1,4 +1,4 @@
-package by.prostrmk.ritualServices.config;
+package by.prostrmk.ritualServices;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
