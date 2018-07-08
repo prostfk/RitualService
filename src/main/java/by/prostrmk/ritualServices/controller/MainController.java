@@ -23,8 +23,8 @@ public class MainController {
     private UserValidator validator;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody String getIndex(){
-        return "hello world, loh";
+    public ModelAndView getIndex(){
+        return new ModelAndView("index", "user", new User());
     }
 
     @RequestMapping(value = "/leaveMessage", method = RequestMethod.GET)
