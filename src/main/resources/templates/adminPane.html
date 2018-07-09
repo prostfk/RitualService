@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"/>
+    <!--<link rel="stylesheet" type="text/css" href="/resources/css/animate.css"/>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="w3-card-4 w3-white animated fadeInUp" style="margin: auto;border-radius: 7px;">
+
+    <table class="w3-table">
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Message</th>
+
+        </tr>
+        <tr th:each="customer : ${users}">
+            <td th:text="${customer.id}"></td>
+            <td th:text="${customer.username}"></td>
+            <td th:text="${customer.mobilePhone}"></td>
+            <td th:text="${customer.mail}"></td>
+            <td th:text="${customer.message}"></td>
+
+            <td>
+                <!--<button class="w3-button w3-red" th:if="${customer.isBlocked()} != 1">Block</button>-->
+                <button class="w3-button w3-green" >Unblock</button>
+            </td>
+        </tr>
+    </table>
+    <a href="/">
+        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" style="margin-top:4%;" type="submit">Main
+            page
+        </button>
+    </a>
+</div>
+
+
+</body>
+</html>
