@@ -2,11 +2,13 @@ package by.prostrmk.ritualServices.controller;
 
 import by.prostrmk.ritualServices.model.entity.User;
 import by.prostrmk.ritualServices.model.repository.UserRepository;
+import by.prostrmk.ritualServices.model.util.ProposalUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -47,8 +49,16 @@ public class AdminPaneController {
         }else {
             return "redirect:/auth";
         }
+    }
 
-
+    @RequestMapping(value = "/done", method = RequestMethod.GET)
+    @ResponseBody
+    public String done(){
+        List<User> all = repository.findAll();
+        for (User user : all) {
+            ProposalUtil.saveInFile(user);
+        }
+        return "SAved";
     }
 
 

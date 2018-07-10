@@ -6,13 +6,11 @@ import by.prostrmk.ritualServices.model.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @Controller
@@ -47,8 +45,18 @@ public class MainController {
             repository.save(user);
             return new ModelAndView("successRequest","user", user);
         }
+    }
 
-
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
+    public String removeUser(@PathVariable String id, HttpSession session){
+        User admin = (User) session.getAttribute("user");
+        try{
+            var s = admin.getUsername();
+        }catch (Exception e){ return "redirect:/"; }
+        User user = repository.findById(id).get();
+        repository.delete(user);
+        System.out.println("user = " + user + " was deleted");
+        return "redirect:/requests";
     }
 
 }

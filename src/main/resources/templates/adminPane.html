@@ -30,9 +30,11 @@
             <td th:text="${user.message}"></td>
 
             <td>
-                <!--<button class="w3-button w3-red" th:if="${customer.isBlocked()} != 1">Block</button>-->
-                <button class="w3-button w3-green" >Unblock</button>
+                <form th:action="|/remove/${user.id}|" method="post">
+                    <input class="w3-button w3-green" type="submit" value="Удалить">
+                </form>
             </td>
+
         </tr>
     </table>
     <a href="/">
