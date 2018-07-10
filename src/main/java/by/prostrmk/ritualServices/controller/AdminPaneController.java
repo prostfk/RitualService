@@ -2,7 +2,6 @@ package by.prostrmk.ritualServices.controller;
 
 import by.prostrmk.ritualServices.model.entity.User;
 import by.prostrmk.ritualServices.model.repository.UserRepository;
-import by.prostrmk.ritualServices.model.util.comparator.DateComparator;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -32,7 +30,6 @@ public class AdminPaneController {
         for (User user1 : repository.findAll()) {
             users.add(user1);
         }
-//        Collections.sort(users,new DateComparator());
         return new ModelAndView("adminPane", "users", users);
 
     }

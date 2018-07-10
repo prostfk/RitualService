@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
-
 @Controller
 public class MainController {
 
@@ -36,15 +34,15 @@ public class MainController {
 
     @RequestMapping(value = "/leaveMessage", method = RequestMethod.POST)
     public ModelAndView postLeaveMessage(@ModelAttribute("user") User user, BindingResult result, SessionStatus status){
+
         validator.validate(user,result);
         System.out.println(user);
         if (result.hasErrors()){
             return new ModelAndView("LeaveRequest", "user", user);
         }else{
-            user.setDate(new Date());
             status.setComplete();
             repository.save(user);
-            return new ModelAndView("successLeaving","user", user);
+            return new ModelAndView("LeaveRequest","user", user);
         }
 
 

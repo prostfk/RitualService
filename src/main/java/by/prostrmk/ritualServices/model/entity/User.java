@@ -3,7 +3,6 @@ package by.prostrmk.ritualServices.model.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -11,29 +10,27 @@ public class User {
 
     @Id
     @GeneratedValue
-    private String id;
+    private Long id;
     private String username;
     private String mobilePhone;
     private String mail;
     private String message;
-    private Date date;
 
     public User() {
     }
 
-    public User(String username, String mobilePhone, String mail, String message, Date date) {
+    public User(String username, String mobilePhone, String mail, String message) {
         this.username = username;
         this.mobilePhone = mobilePhone;
         this.mail = mail;
         this.message = message;
-        this.date = date;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,14 +66,6 @@ public class User {
         this.message = message;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,25 +74,21 @@ public class User {
         return Objects.equals(id, user.id) &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(mobilePhone, user.mobilePhone) &&
-                Objects.equals(mail, user.mail) &&
-                Objects.equals(message, user.message) &&
-                Objects.equals(date, user.date);
+                Objects.equals(mail, user.mail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, mobilePhone, mail, message, date);
+        return Objects.hash(id, username, mobilePhone, mail);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", mail='" + mail + '\'' +
-                ", message='" + message + '\'' +
-                ", date=" + date +
                 '}';
     }
 }
