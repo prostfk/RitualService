@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
+
 @Controller
 public class MainController {
 
@@ -40,9 +42,10 @@ public class MainController {
         if (result.hasErrors()){
             return new ModelAndView("LeaveRequest", "user", user);
         }else{
+            user.setDate(new Date());
             status.setComplete();
             repository.save(user);
-            return new ModelAndView("LeaveRequest","user", user);
+            return new ModelAndView("successRequest","user", user);
         }
 
 

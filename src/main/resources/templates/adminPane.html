@@ -15,19 +15,19 @@
 
     <table class="w3-table">
         <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Message</th>
+            <th>Дата</th>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Почта</th>
+            <th>Пожелание</th>
 
         </tr>
-        <tr th:each="customer : ${users}">
-            <td th:text="${customer.id}"></td>
-            <td th:text="${customer.username}"></td>
-            <td th:text="${customer.mobilePhone}"></td>
-            <td th:text="${customer.mail}"></td>
-            <td th:text="${customer.message}"></td>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.date.toLocaleString()}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.mobilePhone}"></td>
+            <td th:text="${user.mail}"></td>
+            <td th:text="${user.message}"></td>
 
             <td>
                 <!--<button class="w3-button w3-red" th:if="${customer.isBlocked()} != 1">Block</button>-->
