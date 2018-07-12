@@ -1,14 +1,18 @@
 package by.prostrmk.ritualServices.controller;
 
+import by.prostrmk.ritualServices.model.entity.Product;
 import by.prostrmk.ritualServices.model.entity.User;
+import by.prostrmk.ritualServices.model.repository.ProductRepository;
 import by.prostrmk.ritualServices.model.repository.UserRepository;
-import by.prostrmk.ritualServices.model.util.ProposalUtil;
+import by.prostrmk.ritualServices.model.util.FileUtil;
+import by.prostrmk.ritualServices.model.util.ProductUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +23,10 @@ import java.util.List;
 public class AdminPaneController {
 
     @Autowired
-    UserRepository repository;
+    UserRepository userRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @RequestMapping(value = "/requests",method = RequestMethod.GET)
     public ModelAndView getAdminPane(HttpSession session) {
@@ -29,7 +36,7 @@ public class AdminPaneController {
             return new ModelAndView("redirect:/");
         }
         List<User> users = new ArrayList<>();
-        for (User user1 : repository.findAll()) {
+        for (User user1 : userRepository.findAll()) {
             users.add(user1);
         }
         return new ModelAndView("adminPane", "users", users);
@@ -51,15 +58,23 @@ public class AdminPaneController {
         }
     }
 
-    @RequestMapping(value = "/done", method = RequestMethod.GET)
-    @ResponseBody
-    public String done(){
-        List<User> all = repository.findAll();
-        for (User user : all) {
-            ProposalUtil.saveInFile(user);
-        }
-        return "SAved";
+    @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
+    public ModelAndView getAddProductPage(){
+        return new ModelAndView("addProductPage", "product", new Product());
     }
+
+    @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+    public ModelAndView postAddProductPage(@RequestParam("file")MultipartFile file, Product product){
+        if (ProductUtil.validate(product)){
+            String s = FileUtil.saveFile(file);
+            product.setPathToPic(s);
+            productRepository.save(product);
+            return new ModelAndView("redirect:/");
+        }
+        System.out.println(product);
+        return new ModelAndView("redirect:/https://www.google.by/search?q=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&oq=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&aqs=chrome..69i57j0l5.5589j0j7&sourceid=chrome&ie=UTF-8");
+    }
+
 
 
 

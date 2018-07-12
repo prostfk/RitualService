@@ -1,6 +1,8 @@
 package by.prostrmk.ritualServices.controller;
 
+import by.prostrmk.ritualServices.model.entity.Product;
 import by.prostrmk.ritualServices.model.entity.User;
+import by.prostrmk.ritualServices.model.repository.ProductRepository;
 import by.prostrmk.ritualServices.model.repository.UserRepository;
 import by.prostrmk.ritualServices.model.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +14,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class MainController {
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     private UserValidator validator;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex(){
-        return new ModelAndView("index", "user", new User());
+        ModelAndView modelAndView = new ModelAndView("index", "user", new User());
+        modelAndView.addObject("products", productRepository.findAll());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/leaveMessage", method = RequestMethod.GET)
@@ -42,7 +50,7 @@ public class MainController {
         }else{
             user.setDate(new Date());
             status.setComplete();
-            repository.save(user);
+            userRepository.save(user);
             return new ModelAndView("successRequest","user", user);
         }
     }
@@ -53,8 +61,8 @@ public class MainController {
         try{
             var s = admin.getUsername();
         }catch (Exception e){ return "redirect:/"; }
-        User user = repository.findById(id).get();
-        repository.delete(user);
+        User user = userRepository.findById(id).get();
+        userRepository.delete(user);
         System.out.println("user = " + user + " was deleted");
         return "redirect:/requests";
     }

@@ -14,16 +14,18 @@ public class Product {
     private String description;
     private String material;
     private String country;
+    private String pathToPic;
     private int weight;
 
     public Product() {
     }
 
-    public Product(String name, String description, String material, String country, int weight) {
+    public Product(String name, String description, String material, String country, String pathToPic, int weight) {
         this.name = name;
         this.description = description;
         this.material = material;
         this.country = country;
+        this.pathToPic = pathToPic;
         this.weight = weight;
     }
 
@@ -73,6 +75,14 @@ public class Product {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public String getPathToPic() {
+        return pathToPic;
+    }
+
+    public void setPathToPic(String pathToPic) {
+        this.pathToPic = pathToPic;
     }
 
     @Override

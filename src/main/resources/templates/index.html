@@ -7,69 +7,69 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" th:href="@{/resources/css/index.css}" />
-
+    <link rel="stylesheet" th:href="@{/resources/css/index.css}"/>
 
 
 </head>
 <body>
 
-<nav th:fragment="navbar" class="site-header sticky-top py-1 black-back">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-        <!--<a class="py-2 navText" href="#">-->
+<div th:fragment="navbar">
+
+    <nav class="site-header sticky-top py-1 black-back">
+        <div class="container d-flex flex-column flex-md-row justify-content-between">
+            <!--<a class="py-2 navText" href="#">-->
             <!--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>-->
-        <!--</a>-->
-        <a class="py-2 d-none d-md-inline-block navText" href="#">Главная</a>
-        <a class="py-2 d-none d-md-inline-block navText" href="#">Памятники</a>
-        <a class="py-2 d-none d-md-inline-block navText" href="#">Ограды</a>
-        <a class="py-2 d-none d-md-inline-block navText" href="#">Установка</a>
-        <a class="py-2 d-none d-md-inline-block navText" href="#">Граверные работы</a>
-        <a class="py-2 d-none d-md-inline-block navText" href="#">Наши работы</a>
-        <a class="py-2 d-none d-md-inline-block navText" href="#">Контакты</a>
-    </div>
-</nav>
+            <!--</a>-->
+            <a class="py-2 d-none d-md-inline-block navText" href="#">Главная</a>
+            <a class="py-2 d-none d-md-inline-block navText" href="#">Памятники</a>
+            <a class="py-2 d-none d-md-inline-block navText" href="#">Ограды</a>
+            <a class="py-2 d-none d-md-inline-block navText" href="#">Установка</a>
+            <a class="py-2 d-none d-md-inline-block navText" href="#">Граверные работы</a>
+            <a class="py-2 d-none d-md-inline-block navText" href="#">Наши работы</a>
+            <a class="py-2 d-none d-md-inline-block navText" href="#">Контакты</a>
+        </div>
+    </nav>
+</div>
+
+<ul class="list-unstyled">
+    <li th:each="product : ${products}" class="media">
+        <img class="mr-3" th:src="${product.getPathToPic()}" alt="Generic placeholder image">
+        <div class="media-body">
+            <h5 class="mt-0 mb-1" th:text="${product.name}"></h5>
+            <p th:text="${product.description   }"></p>
+        </div>
+    </li>
+
+</ul>
 
 
+<!-- Contact -->
+<!--<div class="w3-container" id="contact" style="margin-top:75px">-->
+<!--<h1 class="w3-xxxlarge w3-text-indigo"><b>Связаться с нами.</b></h1>-->
+<!--<hr style="width:50px;border:5px solid indigo" class="w3-round">-->
+<!--<p>Если вы заинтересованы в наших услугах, свяжитесь с нами</p>-->
+<!--<form action="/leaveMessage" th:object="${user}" method="post">-->
+<!--<div class="w3-section">-->
+<!--<label>Ваше имя</label>-->
+<!--<input class="w3-input w3-border" th:field="*{username}" type="text" requiindigo>-->
+<!--</div>-->
+<!--<div class="w3-section">-->
+<!--<label>Телефон</label>-->
+<!--<input class="w3-input w3-border" th:field="*{mobilePhone}" requiindigo>-->
+<!--</div>-->
+<!--<div class="w3-section">-->
+<!--<label>Email</label>-->
+<!--<input class="w3-input w3-border" th:field="*{mail}">-->
+<!--</div>-->
+<!--<div class="w3-section">-->
+<!--<label>Пожелания к заказу</label>-->
+<!--<input class="w3-input w3-border" th:field="*{message}" >-->
+<!--</div>-->
 
 
-
-
-
-
-
-
-
-
-
-
-    <!-- Contact -->
-    <!--<div class="w3-container" id="contact" style="margin-top:75px">-->
-        <!--<h1 class="w3-xxxlarge w3-text-indigo"><b>Связаться с нами.</b></h1>-->
-        <!--<hr style="width:50px;border:5px solid indigo" class="w3-round">-->
-        <!--<p>Если вы заинтересованы в наших услугах, свяжитесь с нами</p>-->
-        <!--<form action="/leaveMessage" th:object="${user}" method="post">-->
-            <!--<div class="w3-section">-->
-                <!--<label>Ваше имя</label>-->
-                <!--<input class="w3-input w3-border" th:field="*{username}" type="text" requiindigo>-->
-            <!--</div>-->
-            <!--<div class="w3-section">-->
-                <!--<label>Телефон</label>-->
-                <!--<input class="w3-input w3-border" th:field="*{mobilePhone}" requiindigo>-->
-            <!--</div>-->
-            <!--<div class="w3-section">-->
-                <!--<label>Email</label>-->
-                <!--<input class="w3-input w3-border" th:field="*{mail}">-->
-            <!--</div>-->
-            <!--<div class="w3-section">-->
-                <!--<label>Пожелания к заказу</label>-->
-                <!--<input class="w3-input w3-border" th:field="*{message}" >-->
-            <!--</div>-->
-
-
-
-            <!--<button type="submit" class="w3-button w3-block w3-padding-large w3-indigo w3-margin-bottom">Send Message</button>-->
-        <!--</form>-->
-    <!--</div>-->
+<!--<button type="submit" class="w3-button w3-block w3-padding-large w3-indigo w3-margin-bottom">Send Message</button>-->
+<!--</form>-->
+<!--</div>-->
 
 </body>
 </html>

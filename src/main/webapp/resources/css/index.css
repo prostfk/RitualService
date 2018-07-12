@@ -4,3 +4,9 @@
 .navText{
     color: lightgray;
 }
+.product-form{
+
+    border-radius: 10px;
+    background-color: snow;
+    padding: 10%;
+}
