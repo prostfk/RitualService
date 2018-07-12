@@ -23,7 +23,7 @@
 
         </tr>
         <tr th:each="user : ${users}">
-            <td th:text="${user.date.toLocaleString()}"></td>
+            <td th:text="${user.date}"></td>
             <td th:text="${user.username}"></td>
             <td th:text="${user.mobilePhone}"></td>
             <td th:text="${user.mail}"></td>
