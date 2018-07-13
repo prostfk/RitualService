@@ -1,6 +1,7 @@
 package by.prostrmk.ritualServices.controller;
 
 import by.prostrmk.ritualServices.model.entity.Product;
+import by.prostrmk.ritualServices.model.entity.TypeOfProduct;
 import by.prostrmk.ritualServices.model.entity.User;
 import by.prostrmk.ritualServices.model.repository.ProductRepository;
 import by.prostrmk.ritualServices.model.repository.UserRepository;
@@ -60,19 +61,22 @@ public class AdminPaneController {
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
     public ModelAndView getAddProductPage(){
-        return new ModelAndView("addProductPage", "product", new Product());
+        ModelAndView modelAndView = new ModelAndView("addProductPage", "product", new Product());
+        modelAndView.addObject("typesList", TypeOfProduct.getAllTypes());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public ModelAndView postAddProductPage(@RequestParam("file")MultipartFile file, Product product){
         if (ProductUtil.validate(product)){
             String s = FileUtil.saveFile(file);
+//            product.setType(TypeOfProduct.stringToEnum(product.getType().name()));
             product.setPathToPic(s);
             productRepository.save(product);
             return new ModelAndView("redirect:/");
         }
         System.out.println(product);
-        return new ModelAndView("redirect:/https://www.google.by/search?q=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&oq=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&aqs=chrome..69i57j0l5.5589j0j7&sourceid=chrome&ie=UTF-8");
+        return new ModelAndView("forward:https://www.google.by/search?q=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&oq=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&aqs=chrome..69i57j0l5.5589j0j7&sourceid=chrome&ie=UTF-8");
     }
 
 

@@ -16,17 +16,21 @@ public class Product {
     private String country;
     private String pathToPic;
     private int weight;
+    private TypeOfProduct type;
+
+
 
     public Product() {
     }
 
-    public Product(String name, String description, String material, String country, String pathToPic, int weight) {
+    public Product(String name, String description, String material, String country, String pathToPic, int weight, TypeOfProduct type) {
         this.name = name;
         this.description = description;
         this.material = material;
         this.country = country;
         this.pathToPic = pathToPic;
         this.weight = weight;
+        this.type = type;
     }
 
     public String getId() {
@@ -85,6 +89,14 @@ public class Product {
         this.pathToPic = pathToPic;
     }
 
+    public TypeOfProduct getType() {
+        return type;
+    }
+
+    public void setType(TypeOfProduct type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -94,6 +106,7 @@ public class Product {
                 ", material='" + material + '\'' +
                 ", country='" + country + '\'' +
                 ", weight=" + weight +
+                ", type=" + type.toString() +
                 '}';
     }
 }
