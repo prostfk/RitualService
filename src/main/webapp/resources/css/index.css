@@ -5,8 +5,10 @@
     color: lightgray;
 }
 .product-form{
-
     border-radius: 10px;
     background-color: snow;
     padding: 10%;
+}
+.rounded-block{
+    border-radius: 10px;
 }

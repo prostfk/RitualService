@@ -35,9 +35,9 @@ public class MainController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/leaveMessage", method = RequestMethod.GET)
+    @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ModelAndView getLeaveMessage(){
-        return new ModelAndView("LeaveRequest", "user", new User());
+        return new ModelAndView("contacts", "user", new User());
     }
 
     @RequestMapping(value = "/leaveMessage", method = RequestMethod.POST)
@@ -66,5 +66,7 @@ public class MainController {
         System.out.println("user = " + user + " was deleted");
         return "redirect:/requests";
     }
+
+
 
 }

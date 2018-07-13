@@ -26,50 +26,23 @@
             <a class="py-2 d-none d-md-inline-block navText" href="#">Установка</a>
             <a class="py-2 d-none d-md-inline-block navText" href="#">Граверные работы</a>
             <a class="py-2 d-none d-md-inline-block navText" href="#">Наши работы</a>
-            <a class="py-2 d-none d-md-inline-block navText" href="#">Контакты</a>
+            <a class="py-2 d-none d-md-inline-block navText" href="/contacts">Контакты</a>
         </div>
     </nav>
 </div>
 
-<ul class="list-unstyled">
-    <li th:each="product : ${products}" class="media">
-        <img class="mr-3" th:src="${product.getPathToPic()}" alt="Generic placeholder image">
-        <div class="media-body">
-            <h5 class="mt-0 mb-1" th:text="${product.name}"></h5>
-            <p th:text="${product.description   }"></p>
-        </div>
-    </li>
-
-</ul>
+<div th:each="product : ${products}" class="card rounded-block" style="width:400px">
+    <img class="card-img-top" th:src="${product.pathToPic}" alt="Card image">
+    <div class="card-body">
+        <h4 class="card-title" th:text="${product.name}"></h4>
+        <p class="card-text" th:text="${product.description}"></p>
+        <a href="#" class="btn btn-primary">Подробнее</a>
+    </div>
+</div>
 
 
 <!-- Contact -->
-<!--<div class="w3-container" id="contact" style="margin-top:75px">-->
-<!--<h1 class="w3-xxxlarge w3-text-indigo"><b>Связаться с нами.</b></h1>-->
-<!--<hr style="width:50px;border:5px solid indigo" class="w3-round">-->
-<!--<p>Если вы заинтересованы в наших услугах, свяжитесь с нами</p>-->
-<!--<form action="/leaveMessage" th:object="${user}" method="post">-->
-<!--<div class="w3-section">-->
-<!--<label>Ваше имя</label>-->
-<!--<input class="w3-input w3-border" th:field="*{username}" type="text" requiindigo>-->
-<!--</div>-->
-<!--<div class="w3-section">-->
-<!--<label>Телефон</label>-->
-<!--<input class="w3-input w3-border" th:field="*{mobilePhone}" requiindigo>-->
-<!--</div>-->
-<!--<div class="w3-section">-->
-<!--<label>Email</label>-->
-<!--<input class="w3-input w3-border" th:field="*{mail}">-->
-<!--</div>-->
-<!--<div class="w3-section">-->
-<!--<label>Пожелания к заказу</label>-->
-<!--<input class="w3-input w3-border" th:field="*{message}" >-->
-<!--</div>-->
 
-
-<!--<button type="submit" class="w3-button w3-block w3-padding-large w3-indigo w3-margin-bottom">Send Message</button>-->
-<!--</form>-->
-<!--</div>-->
 
 </body>
 </html>
