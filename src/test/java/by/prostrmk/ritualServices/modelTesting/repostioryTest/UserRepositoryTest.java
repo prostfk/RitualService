@@ -38,9 +38,7 @@ public class UserRepositoryTest {
     @Test
     public void findAllTest(){
         List<User> all = repository.findAll();
-
         all.forEach(System.out::println);
-
         assertEquals(4, all.size());
     }
 
@@ -67,5 +65,15 @@ public class UserRepositoryTest {
         User ny = repository.findUserByUsernameLikeIgnoreCase("NY");
         System.out.println("ny = " + ny);
         assertNotNull(ny);
+    }
+
+    @Test
+    public void findUsersByMessageTest() {
+        List<User> deV = repository.findUsersByMessageLikeIgnoreCase("DeV");
+        assertEquals(2,deV.size());
+        deV.forEach(user -> {
+            assertNotNull(user);
+            System.out.println("user = " + user);
+        });
     }
 }
