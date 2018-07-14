@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,28 +36,36 @@ public class UserRepositoryTest {
 //    }
 
     @Test
-    public void findAll(){
+    public void findAllTest(){
         List<User> all = repository.findAll();
+
+        all.forEach(System.out::println);
+
         assertEquals(4, all.size());
     }
 
     @Test
-    public void findUserByUsername() {
+    public void findUserByUsernameTest() {
         User testRoman = repository.findUserByUsername("TestRoman");
         assertEquals( "test@mail.com", testRoman.getMail());
     }
 
     @Test
-    public void findUserByMail() {
+    public void findUserByMailTest() {
         User userByMail = repository.findUserByMail("vitvit@gmail.com");
         assertEquals("Vitaliy", userByMail.getUsername());
     }
 
     @Test
-    public void findUserByPhone() {
+    public void findUserByPhoneTest() {
         User userByMobilePhone = repository.findUserByMobilePhone("+375444346536");
         assertEquals("Anya", userByMobilePhone.getUsername());
     }
 
-
+    @Test
+    public void findUserByUsernameLikeIgnoreCaseTest() {
+        User ny = repository.findUserByUsernameLikeIgnoreCase("NY");
+        System.out.println("ny = " + ny);
+        assertNotNull(ny);
+    }
 }

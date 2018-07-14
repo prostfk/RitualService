@@ -9,10 +9,10 @@ import java.util.List;
 public interface ProductRepository extends MongoRepository<Product, String> {
 
     List<Product> findProductsByCountry(String country);
-    List<Product> findProductsByMaterial(String material);
+    List<Product> findProductsByMaterialLikeIgnoreCase(String material);
     List<Product> findProductsByNameLikeIgnoreCase(String name);
     List<Product> findProductsByWeight(int weight);
     List<Product> findProductsByType(TypeOfProduct typeOfProduct);
-
+    List<Product> findProductsByWeightLessThan(int weight);
 
 }
