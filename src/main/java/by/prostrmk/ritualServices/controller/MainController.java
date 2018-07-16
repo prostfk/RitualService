@@ -31,7 +31,8 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex(){
         ModelAndView modelAndView = new ModelAndView("index", "user", new User());
-        modelAndView.addObject("products", productRepository.findAll());
+        List<Product> all = productRepository.findAll();
+        modelAndView.addObject("products", all);
         return modelAndView;
     }
 
