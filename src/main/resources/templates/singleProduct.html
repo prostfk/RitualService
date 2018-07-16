@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.name}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/resources/css/index.css}"/>
+
+
+</head>
+<body>
+
+<div th:include="~{index.html :: navbar}"></div>
+
+
+<div class="card mb-4 box-shadow" >
+    <img class="card-img-top" th:src="${product.pathToPic}" height="300" width="300">
+    <div class="card-body">
+        <p class="card-text" th:text="${product.name}"></p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <p th:text="${product.description}">
+
+                </p>
+            </div>
+            <small class="text-muted">9 mins</small>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

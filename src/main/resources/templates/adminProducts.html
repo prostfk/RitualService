@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Продукты</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/resources/css/index.css}" />
+
+</head>
+<body>
+
+<div th:include="~{index.html :: navbar}"></div>
+
+<div class="w3-card-4 w3-white animated fadeInUp" style="margin: auto;border-radius: 7px;">
+
+    <table class="w3-table">
+        <tr>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Масса</th>
+            <th>Страна</th>
+            <th>Материал</th>
+
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.type}"></td>
+            <td th:text="${product.weight}"></td>
+            <td th:text="${product.country}"></td>
+            <td th:text="${product.material}"></td>
+
+            <td>
+                <form th:action="|/remove/${product.id}|" method="post">
+                    <input class="w3-button w3-green" type="submit" value="Удалить">
+                </form>
+            </td>
+
+        </tr>
+    </table>
+    <a href="/">
+        <button class="w3-btn w3-white w3-border w3-border-blue w3-round" style="margin-top:4%;" type="submit">Main
+            page
+        </button>
+    </a>
+</div>
+
+
+</body>
+</html>

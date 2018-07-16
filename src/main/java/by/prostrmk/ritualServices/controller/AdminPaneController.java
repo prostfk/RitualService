@@ -10,6 +10,7 @@ import by.prostrmk.ritualServices.model.util.ProductUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,6 +80,26 @@ public class AdminPaneController {
         return new ModelAndView("forward:https://www.google.by/search?q=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&oq=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&aqs=chrome..69i57j0l5.5589j0j7&sourceid=chrome&ie=UTF-8");
     }
 
+    @RequestMapping(value = "/removeProduct", method = RequestMethod.GET)
+    public ModelAndView getRemoveProductPage(HttpSession session){
+        Object object = session.getAttribute("user");
+        if (object!=null){
+            List<Product> all = productRepository.findAll();
+            return new ModelAndView("adminProducts", "products", all);
+        }
+        return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/removeProduct/{id}", method = RequestMethod.POST)
+    public ModelAndView postRemoveProductById(@PathVariable String id, HttpSession session){
+        if (session.getAttribute("user")!=null){
+            Product productsById = productRepository.findProductsById(id);
+            if (productsById!=null){
+                productRepository.delete(productsById);
+            }
+        }
+        return new ModelAndView("redirect:/removeProduct");
+    }
 
 
 
