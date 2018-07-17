@@ -87,7 +87,7 @@ public class AdminPaneController {
             List<Product> all = productRepository.findAll();
             return new ModelAndView("adminProducts", "products", all);
         }
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/auth");
     }
 
     @RequestMapping(value = "/removeProduct/{id}", method = RequestMethod.POST)

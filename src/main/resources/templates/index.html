@@ -14,13 +14,7 @@
 <body>
 
 <div th:fragment="navbar">
-
-
-
-    <!--position: fixed; /* Set the navbar to fixed position */-->
-    <!--top: 0; /* Position the navbar at the top of the page */-->
-    <!--width: 100%; /* Full width */-->
-    <nav class="site-header sticky-top py-1 black-back" style="position: fixed; top: 0;width: 100%">
+    <nav class="site-header sticky-top py-1 black-back" style="position: fixed; padding-bottom: 5%; top: 0;width: 100%">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
             <a class="py-2 d-none d-md-inline-block navText" href="/">Главная</a>
             <a class="py-2 d-none d-md-inline-block navText" href="/monuments">Памятники</a>
@@ -32,15 +26,6 @@
         </div>
     </nav>
 </div>
-
-<!--<div th:each="product : ${products}" class="card rounded-block" style="width:400px">-->
-    <!--<img class="card-img-top" th:src="${product.pathToPic}" alt="Card image">-->
-    <!--<div class="card-body">-->
-        <!--<h4 class="card-title" th:text="${product.name}"></h4>-->
-        <!--<p class="card-text" th:text="${product.description}"></p>-->
-        <!--<a href="#" class="btn btn-primary">Подробнее</a>-->
-    <!--</div>-->
-<!--</div>-->
 
 
 <div class="row">
@@ -54,7 +39,7 @@
                         <button th:href="'/product/' + ${product.id}" type="button" class="btn btn-sm btn-outline-secondary">View</button>
                         <!--<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted" th:text="${product.type}"></small>
                 </div>
             </div>
         </div>

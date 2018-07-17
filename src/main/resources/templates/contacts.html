@@ -8,15 +8,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" th:href="@{/resources/css/index.css}"/>
-
+    <style>
+        body{
+            background-image: url("/resources/webpics/contact-wall.jpg");
+        }
+    </style>
 </head>
 <body>
 
 <div th:include="~{index.html :: navbar}"></div>
 
-<h1 class="text-center">Пожалуйста, заполните форму</h1>
 
-<div class="container product-form">
+<div class="container" style="padding: 10%">
+    <h3 class="text-center">Пожалуйста, заполните форму</h3>
     <div class="row justify-content-center">
         <div class="media-container-column col-lg-8" data-form-type="formoid">
             <form class="mbr-form" action="/leaveMessage" th:object="${user}" method="post" data-form-title="Mobirise Form">
