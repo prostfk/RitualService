@@ -1,8 +1,10 @@
 package by.prostrmk.ritualServices.controller;
 
+import by.prostrmk.ritualServices.model.entity.Order;
 import by.prostrmk.ritualServices.model.entity.Product;
 import by.prostrmk.ritualServices.model.entity.TypeOfProduct;
 import by.prostrmk.ritualServices.model.entity.User;
+import by.prostrmk.ritualServices.model.repository.OrderRepository;
 import by.prostrmk.ritualServices.model.repository.ProductRepository;
 import by.prostrmk.ritualServices.model.repository.UserRepository;
 import by.prostrmk.ritualServices.model.util.FileUtil;
@@ -23,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class AdminPaneController {
+@RequestMapping(value = "/admin")
+public class AdminController {
 
     @Autowired
     UserRepository userRepository;
@@ -31,13 +34,18 @@ public class AdminPaneController {
     @Autowired
     ProductRepository productRepository;
 
-    @RequestMapping(value = "/requests",method = RequestMethod.GET)
+    @Autowired
+    OrderRepository orderRepository;
+
+    @RequestMapping(value = "/requests", method = RequestMethod.GET)
     public ModelAndView getAdminPane(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user==null){ return new ModelAndView("redirect:/auth"); }
-        if (!user.getUsername().equals("admin") && !DigestUtils.md5Hex(user.getMessage()).equals("202cb962ac59075b964b07152d234b70")) {
-            return new ModelAndView("redirect:/");
-        }
+//        User user = (User) session.getAttribute("user");
+//        if (user == null) {
+//            return new ModelAndView("redirect:/auth");
+//        }
+//        if (!user.getUsername().equals("admin") && !DigestUtils.md5Hex(user.getMessage()).equals("202cb962ac59075b964b07152d234b70")) {
+//            return new ModelAndView("redirect:/");
+//        }
         List<User> users = new ArrayList<>();
         for (User user1 : userRepository.findAll()) {
             users.add(user1);
@@ -46,33 +54,18 @@ public class AdminPaneController {
 
     }
 
-    @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public ModelAndView getAuth(){
-        return new ModelAndView("auth", "user", new User());
-    }
-
-    @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public String postAuth(HttpSession session, User user){
-        if (user.getUsername().equals("admin") && DigestUtils.md5Hex(user.getMessage()).equals("202cb962ac59075b964b07152d234b70")){
-            session.setAttribute("user", user);
-            return "redirect:/requests";
-        }else {
-            return "redirect:/auth";
-        }
-    }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
-    public ModelAndView getAddProductPage(){
+    public ModelAndView getAddProductPage() {
         ModelAndView modelAndView = new ModelAndView("addProductPage", "product", new Product());
         modelAndView.addObject("typesList", TypeOfProduct.getAllTypes());
         return modelAndView;
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-    public ModelAndView postAddProductPage(@RequestParam("file")MultipartFile file, Product product){
-        if (ProductUtil.validate(product)){
+    public ModelAndView postAddProductPage(@RequestParam("file") MultipartFile file, Product product) {
+        if (ProductUtil.validate(product)) {
             String s = FileUtil.saveFile(file);
-//            product.setType(TypeOfProduct.stringToEnum(product.getType().name()));
             product.setPathToPic(s);
             productRepository.save(product);
             return new ModelAndView("redirect:/");
@@ -82,31 +75,40 @@ public class AdminPaneController {
     }
 
     @RequestMapping(value = "/removeProduct", method = RequestMethod.GET)
-    public ModelAndView getRemoveProductPage(HttpSession session){
-        Object object = session.getAttribute("user");
-        if (object!=null){
-            List<Product> all = productRepository.findAll();
-            return new ModelAndView("adminProducts", "products", all);
-        }
-        return new ModelAndView("redirect:/auth");
+    public ModelAndView getRemoveProductPage() {
+        List<Product> all = productRepository.findAll();
+        return new ModelAndView("adminProducts", "products", all);
     }
 
     @RequestMapping(value = "/removeProduct/{id}", method = RequestMethod.POST)
-    public ModelAndView postRemoveProductById(@PathVariable String id, HttpSession session){
-        if (session.getAttribute("user")!=null){
-            Product productsById = productRepository.findProductById(id);
-            if (productsById!=null){
-                String pathToPic = productsById.getPathToPic();
-                File file = new File("src/main/webapp/" + pathToPic);
-                if (file.exists()){
-                    file.delete();
-                }
-                productRepository.delete(productsById);
+    public ModelAndView postRemoveProductById(@PathVariable String id, HttpSession session) {
+        Product productsById = productRepository.findProductById(id);
+        if (productsById != null) {
+            String pathToPic = productsById.getPathToPic();
+            File file = new File("src/main/webapp/" + pathToPic);
+            if (file.exists()) {
+                file.delete();
             }
+            productRepository.delete(productsById);
         }
         return new ModelAndView("redirect:/removeProduct");
     }
 
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
+    public String removeUser(@PathVariable String id) {
+        User user = userRepository.findById(id).get();
+        userRepository.delete(user);
+        System.out.println("user = " + user + " was deleted");
+        return "redirect:/admin/requests";
+    }
+
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public ModelAndView getIndexOfOrders(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("adminOrdersPage");
+        List<Order> all = orderRepository.findAll();
+        modelAndView.addObject("orders", all);
+        return modelAndView;
+    }
 
 
 }

@@ -7,23 +7,47 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"/>
 
 </head>
 <body>
+<div th:fragment="admin-nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Администратор</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<!--<div class="dropdown">-->
-    <!--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Меню-->
-    <!--</button>-->
-    <!--<ul class="dropdown-menu">-->
-        <!--<li><a href="/addProduct">Добавить товар</a></li>-->
-        <!--<li><a href="/requests">Заявки</a></li>-->
-    <!--</ul>-->
-<!--</div>-->
-
-
-
-
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/requests">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/orders">Заказы</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Изменить контент
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/admin/addProduct">Добавить товар</a>
+                        <a class="dropdown-item" href="/admin/removeProduct">Удалить товар</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/">Вернуться к сайту</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>
 <div class="w3-card-4 w3-white animated fadeInUp" style="margin: auto;border-radius: 7px;">
 
     <table class="w3-table">

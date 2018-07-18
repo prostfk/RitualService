@@ -12,6 +12,8 @@
 </head>
 <body>
 
+<div th:include="~{adminPane.html :: admin-nav}"></div>
+
 <div th:include="~{index.html :: navbar}"></div>
 
 <form method="post" action="/addProduct" class="product-form" th:object="${product}" enctype="multipart/form-data">

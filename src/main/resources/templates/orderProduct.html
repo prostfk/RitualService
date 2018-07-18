@@ -1,10 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Заказ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/resources/css/index.css}"/>
+
 </head>
 <body>
-$END$
+
+
+<div class="card mb-4 box-shadow" style="width: 50%; margin: auto;">
+    <img class="card-img-top" th:src="${product.pathToPic}" >
+    <div class="card-body">
+        <p class="card-text" th:text="${product.name}"></p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <p th:text="${product.description}">
+
+                </p>
+            </div>
+            <!--<small class="text-muted"></small>-->
+        </div>
+    </div>
+</div>
+<div class="container" style="padding: 10%">
+    <h3 class="text-center">Пожалуйста, заполните форму</h3>
+    <div class="row justify-content-center">
+        <div class="media-container-column col-lg-8" data-form-type="formoid">
+            <form class="mbr-form" th:action="'/orderProduct/' + ${product.id}" th:object="${user}" method="post" data-form-title="Mobirise Form">
+                <div class="row row-sm-offset">
+                    <div class="col-md-4 multi-horizontal" data-for="name">
+                        <div class="form-group">
+                            <label class="form-control-label mbr-fonts-style display-7" for="name-form1-2w">Имя</label>
+                            <input th:field="*{username}" type="text" class="form-control" name="name" data-form-field="Name" required=""
+                                   id="name-form1-2w">
+                        </div>
+                    </div>
+                    <div class="col-md-4 multi-horizontal" data-for="email">
+                        <div class="form-group">
+                            <label class="form-control-label mbr-fonts-style display-7"
+                                   for="email-form1-2w">Email</label>
+                            <input th:field="*{mail}" type="email" class="form-control" name="email" data-form-field="Email" required=""
+                                   id="email-form1-2w">
+                        </div>
+                    </div>
+                    <div class="col-md-4 multi-horizontal" data-for="phone">
+                        <div class="form-group">
+                            <label class="form-control-label mbr-fonts-style display-7"
+                                   for="phone-form1-2w">Телефон</label>
+                            <input th:field="*{mobilePhone}"  type="tel" class="form-control" name="phone" data-form-field="Phone"
+                                   id="phone-form1-2w">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-for="message">
+                    <label class="form-control-label mbr-fonts-style display-7" for="message-form1-2w">Пожелание к
+                        заказу</label>
+                    <textarea  th:filed="*{message}" class="form-control" style="resize: none" name="message" rows="7" data-form-field="Message"
+                               id="message-form1-2w"></textarea>
+                </div>
+
+                <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-form display-4">ОТПРАВИТЬ</button>
+                </span>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>

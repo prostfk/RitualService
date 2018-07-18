@@ -5,6 +5,7 @@ import by.prostrmk.ritualServices.model.entity.User;
 import by.prostrmk.ritualServices.model.repository.ProductRepository;
 import by.prostrmk.ritualServices.model.repository.UserRepository;
 import by.prostrmk.ritualServices.model.validator.UserValidator;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -56,16 +57,21 @@ public class MainController {
         }
     }
 
-    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
-    public String removeUser(@PathVariable String id, HttpSession session){
-        User admin = (User) session.getAttribute("user");
-        try{
-            var s = admin.getUsername();
-        }catch (Exception e){ return "redirect:/"; }
-        User user = userRepository.findById(id).get();
-        userRepository.delete(user);
-        System.out.println("user = " + user + " was deleted");
-        return "redirect:/requests";
+
+
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    public ModelAndView getAuth(){
+        return new ModelAndView("auth", "user", new User());
+    }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    public String postAuth(HttpSession session, User user){
+        if (user.getUsername().equals("admin") && DigestUtils.md5Hex(user.getMessage()).equals("202cb962ac59075b964b07152d234b70")){
+            session.setAttribute("user", user);
+            return "redirect:/admin/requests";
+        }else {
+            return "redirect:/auth";
+        }
     }
 
 
