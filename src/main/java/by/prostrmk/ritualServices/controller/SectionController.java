@@ -36,7 +36,7 @@ public class SectionController {
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
     public ModelAndView getCurrentProduct(@PathVariable String id){
-        Product productById = repository.findProductsById(id);
+        Product productById = repository.findProductById(id);
         if (productById!=null){
             productById.setPathToPic("../" + productById.getPathToPic());
             return new ModelAndView("singleProduct", "product", productById);

@@ -15,6 +15,6 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findProductsByWeight(int weight);
     List<Product> findProductsByType(TypeOfProduct typeOfProduct);
     List<Product> findProductsByWeightLessThan(int weight);
-    Product findProductsById(String id);
+    Product findProductById(String id);
 
 }

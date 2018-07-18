@@ -16,8 +16,8 @@
 <div th:include="~{index.html :: navbar}"></div>
 
 
-<div class="card mb-4 box-shadow" >
-    <img class="card-img-top" th:src="${product.pathToPic}" height="300" width="300">
+<div class="card mb-4 box-shadow" style="width: 50%; margin: auto;">
+    <img class="card-img-top" th:src="${product.pathToPic}" >
     <div class="card-body">
         <p class="card-text" th:text="${product.name}"></p>
         <div class="d-flex justify-content-between align-items-center">

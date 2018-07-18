@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,8 +94,13 @@ public class AdminPaneController {
     @RequestMapping(value = "/removeProduct/{id}", method = RequestMethod.POST)
     public ModelAndView postRemoveProductById(@PathVariable String id, HttpSession session){
         if (session.getAttribute("user")!=null){
-            Product productsById = productRepository.findProductsById(id);
+            Product productsById = productRepository.findProductById(id);
             if (productsById!=null){
+                String pathToPic = productsById.getPathToPic();
+                File file = new File("src/main/webapp/" + pathToPic);
+                if (file.exists()){
+                    file.delete();
+                }
                 productRepository.delete(productsById);
             }
         }

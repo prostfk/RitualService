@@ -36,7 +36,9 @@
                 <p class="card-text" th:text="${product.name}"></p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <button th:href="'/product/' + ${product.id}" type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <a th:href="'/product/' + ${product.id}">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        </a>
                         <!--<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
                     </div>
                     <small class="text-muted" th:text="${product.type}"></small>
