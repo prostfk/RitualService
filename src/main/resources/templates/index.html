@@ -13,16 +13,37 @@
 </head>
 <body>
 
+
 <div th:fragment="navbar">
-    <nav class="site-header sticky-top py-1 black-back" style="position: fixed; padding-bottom: 5%; top: 0;width: 100%">
-        <div class="container d-flex flex-column flex-md-row justify-content-between">
-            <a class="py-2 d-none d-md-inline-block navText" href="/">Главная</a>
-            <a class="py-2 d-none d-md-inline-block navText" href="/monuments">Памятники</a>
-            <a class="py-2 d-none d-md-inline-block navText" href="/fences">Ограды</a>
-            <a class="py-2 d-none d-md-inline-block navText" href="/engravings">Граверные работы</a>
-            <a class="py-2 d-none d-md-inline-block navText" href="#">Установка</a>
-            <a class="py-2 d-none d-md-inline-block navText" href="#">Наши работы</a>
-            <a class="py-2 d-none d-md-inline-block navText" href="/contacts">Контакты</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Ритуальные услуги</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/monuments">Памятники</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/fences">Ограды</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/engravings">Граверные работы</a>
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+                <input class="form-control mr-sm-2" name="searchValue" type="search" placeholder="Поиск товара"
+                       aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+            </form>
         </div>
     </nav>
 </div>
@@ -30,7 +51,7 @@
 
 <div class="row">
     <div class="col-sm-6 col-md-4 col-lg-3" th:each="product : ${products}">
-        <div class="card mb-4 box-shadow" >
+        <div class="card mb-4 box-shadow">
             <img class="card-img-top" th:src="${product.pathToPic}" height="300" width="300">
             <div class="card-body">
                 <p class="card-text" th:text="${product.name}"></p>
@@ -39,13 +60,14 @@
                         <a th:href="'/product/' + ${product.id}">
                             <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                         </a>
-                        <!--<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
                     </div>
                     <small class="text-muted" th:text="${product.type}"></small>
                 </div>
             </div>
         </div>
-
+    </div>
+    <div th:if="${products.isEmpty()}">
+        <h1 style="text-align: center">По вашему запросу ничего не найдено</h1>
     </div>
 
 </div>

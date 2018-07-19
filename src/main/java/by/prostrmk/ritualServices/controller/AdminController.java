@@ -37,15 +37,8 @@ public class AdminController {
     @Autowired
     OrderRepository orderRepository;
 
-    @RequestMapping(value = "/requests", method = RequestMethod.GET)
+    @RequestMapping(value = {"/requests", ""}, method = RequestMethod.GET)
     public ModelAndView getAdminPane(HttpSession session) {
-//        User user = (User) session.getAttribute("user");
-//        if (user == null) {
-//            return new ModelAndView("redirect:/auth");
-//        }
-//        if (!user.getUsername().equals("admin") && !DigestUtils.md5Hex(user.getMessage()).equals("202cb962ac59075b964b07152d234b70")) {
-//            return new ModelAndView("redirect:/");
-//        }
         List<User> users = new ArrayList<>();
         for (User user1 : userRepository.findAll()) {
             users.add(user1);
@@ -53,7 +46,6 @@ public class AdminController {
         return new ModelAndView("adminPane", "users", users);
 
     }
-
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
     public ModelAndView getAddProductPage() {

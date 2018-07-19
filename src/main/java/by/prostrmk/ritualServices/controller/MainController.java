@@ -58,6 +58,11 @@ public class MainController {
     }
 
 
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView getSearchByProducts(@RequestParam("searchValue") String searchValue){
+        List<Product> productsByNameLikeIgnoreCase = productRepository.findProductsByNameLikeIgnoreCase(searchValue);
+        return new ModelAndView("index", "products", productsByNameLikeIgnoreCase);
+    }
 
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public ModelAndView getAuth(){
