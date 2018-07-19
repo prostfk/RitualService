@@ -38,7 +38,7 @@ public class AdminController {
     OrderRepository orderRepository;
 
     @RequestMapping(value = {"/requests", ""}, method = RequestMethod.GET)
-    public ModelAndView getAdminPane(HttpSession session) {
+    public ModelAndView getAdminPane() {
         List<User> users = new ArrayList<>();
         for (User user1 : userRepository.findAll()) {
             users.add(user1);
@@ -60,7 +60,7 @@ public class AdminController {
             String s = FileUtil.saveFile(file);
             product.setPathToPic(s);
             productRepository.save(product);
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/admin");
         }
         System.out.println(product);
         return new ModelAndView("forward:https://www.google.by/search?q=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&oq=%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8&aqs=chrome..69i57j0l5.5589j0j7&sourceid=chrome&ie=UTF-8");
@@ -73,7 +73,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/removeProduct/{id}", method = RequestMethod.POST)
-    public ModelAndView postRemoveProductById(@PathVariable String id, HttpSession session) {
+    public ModelAndView postRemoveProductById(@PathVariable String id) {
         Product productsById = productRepository.findProductById(id);
         if (productsById != null) {
             String pathToPic = productsById.getPathToPic();
@@ -83,7 +83,7 @@ public class AdminController {
             }
             productRepository.delete(productsById);
         }
-        return new ModelAndView("redirect:/removeProduct");
+        return new ModelAndView("redirect:/admin/removeProduct");
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
@@ -95,12 +95,23 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    public ModelAndView getIndexOfOrders(HttpSession session) {
+    public ModelAndView getIndexOfOrders() {
         ModelAndView modelAndView = new ModelAndView("adminOrdersPage");
         List<Order> all = orderRepository.findAll();
         modelAndView.addObject("orders", all);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/removeOrder/{id}", method = RequestMethod.POST)
+    public String removeOrder(@PathVariable String id){
+        Order orderById = orderRepository.findOrderById(id);
+        if (orderById!=null){
+            orderRepository.delete(orderById);
+        }
+        return "redirect:/admin/orders";
+    }
+
+
 
 
 }

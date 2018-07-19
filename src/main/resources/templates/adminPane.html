@@ -67,7 +67,7 @@
             <td th:text="${user.message}"></td>
 
             <td>
-                <form th:action="|/remove/${user.id}|" method="post">
+                <form th:action="|/admin/remove/${user.id}|" method="post">
                     <input class="w3-button w3-green" type="submit" value="Удалить">
                 </form>
             </td>

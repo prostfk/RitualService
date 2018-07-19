@@ -32,6 +32,11 @@
         <td>
             <a th:href="'/product/' + ${order.product.id}" th:text="${order.product.name}"></a>
         </td>
+        <td>
+            <form th:action="|/admin/removeOrder/${order.id}|" method="post">
+                <input class="btn btn-primary" type="submit" value="Удалить">
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
