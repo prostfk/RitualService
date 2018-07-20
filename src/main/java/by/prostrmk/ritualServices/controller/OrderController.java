@@ -9,6 +9,7 @@ import by.prostrmk.ritualServices.model.repository.UserRepository;
 import by.prostrmk.ritualServices.model.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,14 +41,15 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/orderProduct/{id}",method = RequestMethod.POST)
-    public String postOrder(@PathVariable String id, User user, BindingResult result){
+    public String postOrder(@PathVariable String id, User user, BindingResult result, Model model){
         Product productById = productRepository.findProductById(id);
         userValidator.validate(user,result);
         if (productById!=null && !result.hasErrors()) {
             Order order = new Order(user,productById);
             orderRepository.save(order);
             System.out.println("SAVED");
-            return "redirect:/";
+            model.addAttribute("user", user);
+            return "successRequest";
         }
         return "redirect:/error";
 

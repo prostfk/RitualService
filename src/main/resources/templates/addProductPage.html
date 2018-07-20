@@ -15,7 +15,7 @@
 <div th:include="~{adminPane.html :: admin-nav}"></div>
 
 
-<form method="post" action="/addProduct" class="product-form" th:object="${product}" enctype="multipart/form-data">
+<form method="post" action="/admin/addProduct" class="product-form" th:object="${product}" enctype="multipart/form-data">
     <div class="form-group">
         <label for="name">Имя товара</label>
         <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Имя">
